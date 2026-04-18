@@ -4,4 +4,4 @@
 -Safe
 -Good food
 
-These are why i love japan
+This is why i love japan
