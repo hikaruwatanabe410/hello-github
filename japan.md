@@ -3,3 +3,4 @@
 Nature
 Safe
 Good food
+These are why i love japan
