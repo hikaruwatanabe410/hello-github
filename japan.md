@@ -5,3 +5,4 @@
 -Good food
 
 These are why i love japan
+#3 Good things about japan (my first project using git. add this file to hello.github)
