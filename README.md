@@ -11,3 +11,8 @@ If this ends up being a bad idea, I can throw it away.
 ## Hobbies
 - Coding
 - Reading
+
+## Skills I'm learning
+-Coding
+-Soccer
+-Photography
