@@ -16,3 +16,8 @@ If this ends up being a bad idea, I can throw it away.
 -Coding
 -Soccer
 -Photography
+
+## Goals
+- Master Git and GitHub
+- Write my first Python project
+- Contribute to open source
