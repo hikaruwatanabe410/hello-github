@@ -1,0 +1,37 @@
+{
+  "manifest_version": 3,
+  "name": "Nova Focus Shield",
+  "short_name": "NovaFocus",
+  "version": "1.0.0",
+  "description": "Companion blocker for Nova Focus. Actually blocks navigation to distracting web apps (WhatsApp Web, LINE, Instagram, TikTok, X, Facebook, YouTube, Discord, Reddit) while a focus mission is active.",
+  "action": {
+    "default_popup": "popup.html",
+    "default_title": "Nova Focus Shield"
+  },
+  "background": {
+    "service_worker": "background.js"
+  },
+  "permissions": [
+    "storage",
+    "alarms",
+    "declarativeNetRequest"
+  ],
+  "host_permissions": [
+    "*://web.whatsapp.com/*",
+    "*://*.line.me/*",
+    "*://*.instagram.com/*",
+    "*://*.tiktok.com/*",
+    "*://*.x.com/*",
+    "*://*.twitter.com/*",
+    "*://*.facebook.com/*",
+    "*://*.youtube.com/*",
+    "*://*.discord.com/*",
+    "*://*.reddit.com/*"
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["blocked.html", "blocked.css", "blocked.js"],
+      "matches": ["<all_urls>"]
+    }
+  ]
+}

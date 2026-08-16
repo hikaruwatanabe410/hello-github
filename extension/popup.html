@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Nova Focus Shield</title>
+<link rel="stylesheet" href="popup.css" />
+</head>
+<body>
+  <div class="wrap">
+    <div class="brand">⬡ NOVA<span class="accent">SHIELD</span></div>
+
+    <div id="idle-view">
+      <div class="label">MISSION LENGTH (MIN)</div>
+      <div class="dur-row" id="dur-row">
+        <button class="dur-btn active" data-min="15">15</button>
+        <button class="dur-btn" data-min="25">25</button>
+        <button class="dur-btn" data-min="45">45</button>
+        <button class="dur-btn" data-min="60">60</button>
+      </div>
+
+      <div class="label">BLOCK LIST</div>
+      <div id="target-list" class="target-list"></div>
+
+      <button id="btn-start" class="btn-start">▶ ARM SHIELD</button>
+    </div>
+
+    <div id="active-view" class="hidden">
+      <div class="label glow">SHIELD ACTIVE</div>
+      <div class="time-left" id="time-left">00:00</div>
+      <div class="sub">Blocking navigation to armed sites</div>
+      <button id="btn-stop" class="btn-stop">◼ DISARM</button>
+    </div>
+
+    <div class="footer">Part of the Nova Focus system</div>
+  </div>
+  <script src="popup.js"></script>
+</body>
+</html>
