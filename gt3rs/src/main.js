@@ -51,7 +51,17 @@ function setLoader(p) {
   });
 }
 
-const stage = createStage($('#stage'), { onProgress: (p) => setLoader(p * 0.9) });
+function stageFailed(reason) {
+  document.documentElement.classList.add('no-webgl');
+  const el = $('#stageError');
+  el.textContent = `3D view unavailable on this device (${reason}).`;
+  el.hidden = false;
+}
+
+const stage = createStage($('#stage'), {
+  onProgress: (p) => setLoader(p * 0.9),
+  onLost: () => stageFailed('graphics context lost'),
+});
 
 /* ----------------------------------------------------------- scroll → poses */
 const poseSections = $$('[data-pose]');
@@ -254,7 +264,7 @@ function intro() {
 
 async function boot() {
   if (!stage) {
-    document.documentElement.classList.add('no-webgl');
+    stageFailed('WebGL is not supported');
     setLoader(1);
     intro();
     return;
@@ -273,7 +283,7 @@ async function boot() {
     await new Promise((r) => setTimeout(r, 450));
   } catch (err) {
     console.error(err);
-    document.documentElement.classList.add('no-webgl');
+    stageFailed((err && (err.message || err.type)) || 'model failed to load');
   }
   intro();
 }

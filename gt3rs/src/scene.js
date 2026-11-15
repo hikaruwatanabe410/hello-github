@@ -187,14 +187,19 @@ function buildDust() {
   );
 }
 
-export function createStage(canvas, { onProgress } = {}) {
+const TEXTURE_SLOTS = ['map', 'normalMap', 'aoMap', 'roughnessMap', 'metalnessMap', 'emissiveMap', 'specularIntensityMap', 'specularColorMap', 'clearcoatMap', 'clearcoatRoughnessMap', 'clearcoatNormalMap'];
+
+export function createStage(canvas, { onProgress, onLost } = {}) {
+  const lowMemory = window.matchMedia('(pointer: coarse)').matches || window.innerWidth < 860;
   let renderer;
   try {
     renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'high-performance' });
   } catch (e) {
     return null;
   }
+  canvas.addEventListener('webglcontextlost', (e) => { e.preventDefault(); visible = false; if (onLost) onLost(); });
   renderer.setClearColor(0x000000, 0);
+  let visible = true;
   renderer.toneMapping = THREE.ACESFilmicToneMapping;
   renderer.toneMappingExposure = 1.05;
 
@@ -288,7 +293,7 @@ export function createStage(canvas, { onProgress } = {}) {
   function resize() {
     width = window.innerWidth; height = window.innerHeight;
     aspect = width / height; mobile = width < 860;
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, mobile ? 2 : 1.75));
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, lowMemory ? 1.5 : 1.75));
     renderer.setSize(width, height, false);
     camera.aspect = aspect;
     camera.updateProjectionMatrix();
@@ -304,7 +309,7 @@ export function createStage(canvas, { onProgress } = {}) {
 
   // ---- render loop --------------------------------------------------------
   let last = performance.now();
-  let running = false, visible = true, raf = 0, elapsed = 0;
+  let running = false, raf = 0, elapsed = 0;
   const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function frame() {
@@ -341,7 +346,7 @@ export function createStage(canvas, { onProgress } = {}) {
   }
 
   // ---- gallery stills -----------------------------------------------------
-  function capture(shot, w = 1280, h = 860) {
+  function capture(shot, w = lowMemory ? 960 : 1280, h = lowMemory ? 645 : 860) {
     const prevW = width, prevH = height;
     renderer.setPixelRatio(1);
     renderer.setSize(w, h, false);
@@ -407,6 +412,30 @@ export function createStage(canvas, { onProgress } = {}) {
         });
         push(paintMats, paintNow);
         push(wheelMats, wheelNow);
+        // Phones and tablets have far less graphics memory: shrink large
+        // textures before they are uploaded so the WebGL context survives.
+        if (lowMemory) {
+          const seen = new Set();
+          model.traverse((o) => {
+            if (!o.isMesh) return;
+            for (const key of TEXTURE_SLOTS) {
+              const tex = o.material[key];
+              if (!tex || seen.has(tex) || !tex.image) continue;
+              seen.add(tex);
+              const cap = key === 'normalMap' ? 1024 : 512;
+              const { width: w, height: h } = tex.image;
+              if (Math.max(w, h) <= cap) continue;
+              const k = cap / Math.max(w, h);
+              const c = document.createElement('canvas');
+              c.width = Math.max(1, Math.round(w * k));
+              c.height = Math.max(1, Math.round(h * k));
+              c.getContext('2d').drawImage(tex.image, 0, 0, c.width, c.height);
+              if (tex.image.close) tex.image.close();
+              tex.image = c;
+              tex.needsUpdate = true;
+            }
+          });
+        }
         // The source file is in 1/100 scale; normalise to metres, centred, on the floor.
         const box = new THREE.Box3().setFromObject(model);
         const size = box.getSize(new THREE.Vector3());
