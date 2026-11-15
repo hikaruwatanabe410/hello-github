@@ -1,0 +1,5 @@
+3D model: "Porsche 911 GT3 RS Snow Edition" by Drifter Models
+https://sketchfab.com/3d-models/porsche-911-gt3-rs-snow-edition-6f44b99606e94753ae83a75ada3ba3c8
+Licensed under CC BY 4.0 (http://creativecommons.org/licenses/by/4.0/)
+Changes: geometry simplified, textures resized and compressed (Draco / WebP),
+paint and wheel materials replaced at runtime.

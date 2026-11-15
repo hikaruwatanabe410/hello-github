@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>911 GT3 RS — Apex Nine Motorsport</title>
+  <meta name="description" content="The Porsche 911 GT3 RS, presented by Apex Nine Motorsport. 525 PS, 9,000 rpm, 860 kg of downforce. Explore it in 3D and request an allocation." />
+  <meta name="theme-color" content="#060707" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23060707'/%3E%3Cpath d='M6 24 16 7l10 17h-5l-5-9-5 9z' fill='%23c6f135'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <!-- Loader -->
+  <div class="loader" id="loader" aria-live="polite">
+    <div class="loader__inner">
+      <span class="loader__label mono">Apex Nine / Initialising studio</span>
+      <div class="loader__count"><span id="loaderCount">000</span><i>%</i></div>
+      <div class="loader__bar"><span id="loaderBar"></span></div>
+      <span class="loader__status mono" id="loaderStatus">Loading vehicle geometry</span>
+    </div>
+  </div>
+
+  <!-- Layer behind the 3D canvas -->
+  <div class="backdrop" aria-hidden="true">
+    <div class="backdrop__glow"></div>
+    <div class="backdrop__title" id="backTitle"><span>GT3</span><span>RS</span></div>
+  </div>
+
+  <canvas id="stage" aria-hidden="true"></canvas>
+
+  <!-- Fixed HUD -->
+  <div class="hud" aria-hidden="true">
+    <i class="hud__corner hud__corner--tl"></i><i class="hud__corner hud__corner--tr"></i>
+    <i class="hud__corner hud__corner--bl"></i><i class="hud__corner hud__corner--br"></i>
+    <div class="hud__rail">
+      <span class="mono" id="hudIndex">01</span>
+      <div class="hud__track"><span id="hudProgress"></span></div>
+      <span class="mono">06</span>
+    </div>
+  </div>
+
+  <header class="nav" id="nav">
+    <a class="nav__brand" href="#top" aria-label="Apex Nine Motorsport, home">
+      <svg viewBox="0 0 32 32" width="26" height="26" aria-hidden="true"><path d="M3 26 16 4l13 22h-6.2L16 14.4 9.2 26z" fill="currentColor"/></svg>
+      <span>Apex&nbsp;Nine</span>
+    </a>
+    <nav class="nav__links" aria-label="Primary">
+      <a href="#performance">Performance</a>
+      <a href="#engineering">Engineering</a>
+      <a href="#configure">Configure</a>
+      <a href="#gallery">Gallery</a>
+    </nav>
+    <a class="btn btn--small" href="#enquire"><span>Enquire</span></a>
+  </header>
+
+  <main id="top">
+    <!-- HERO -->
+    <section class="hero" data-pose="hero" data-index="01">
+      <div class="hero__top">
+        <p class="eyebrow mono" data-hero>Type 992 &nbsp;/&nbsp; Now taking allocations</p>
+        <h1 class="hero__title" data-hero>
+          <span class="hero__kicker">Porsche 911</span>
+          <span class="sr-only">GT3 RS</span>
+        </h1>
+      </div>
+      <div class="hero__bottom">
+        <p class="hero__lede" data-hero>A race car that happens to wear number plates. Four litres, no turbos, nine thousand revs and more downforce than anything Weissach has ever put on the road.</p>
+        <ul class="hero__stats" data-hero>
+          <li><b>525</b><span class="mono">PS</span></li>
+          <li><b>3.2</b><span class="mono">s 0–100</span></li>
+          <li><b>6:49</b><span class="mono">Nordschleife</span></li>
+        </ul>
+        <a class="scrollcue mono" href="#performance" data-hero><i></i>Scroll</a>
+      </div>
+    </section>
+
+    <!-- PERFORMANCE -->
+    <section class="stats" id="performance" data-pose="stats" data-index="02">
+      <div class="stats__sticky">
+      <div class="stats__head">
+        <p class="eyebrow mono" data-reveal>02 — Performance</p>
+        <h2 class="display" data-reveal>Numbers that don't<br />need adjectives.</h2>
+      </div>
+      <dl class="stats__grid">
+        <div class="stat" data-reveal><dt class="mono">Power</dt><dd><b data-count="525">0</b><i>PS</i></dd><p>386 kW from a naturally aspirated 4.0-litre flat-six.</p></div>
+        <div class="stat" data-reveal><dt class="mono">0–100 km/h</dt><dd><b data-count="3.2" data-decimals="1">0</b><i>s</i></dd><p>Seven-speed PDK with a shorter final drive than the GT3.</p></div>
+        <div class="stat" data-reveal><dt class="mono">Redline</dt><dd><b data-count="9000" data-sep>0</b><i>rpm</i></dd><p>Six individual throttle bodies. One unforgettable sound.</p></div>
+        <div class="stat" data-reveal><dt class="mono">Downforce</dt><dd><b data-count="860">0</b><i>kg</i></dd><p>At 285 km/h — twice its predecessor, three times a GT3.</p></div>
+        <div class="stat" data-reveal><dt class="mono">Top speed</dt><dd><b data-count="296">0</b><i>km/h</i></dd><p>Traded willingly for cornering grip.</p></div>
+        <div class="stat" data-reveal><dt class="mono">Nordschleife</dt><dd><b>6:49.328</b></dd><p>20.8 km lap. Faster than hypercars at triple the price.</p></div>
+      </dl>
+      </div>
+    </section>
+
+    <!-- ENGINEERING -->
+    <div id="engineering">
+      <section class="chapter chapter--left" data-pose="chassis" data-index="03">
+        <article class="chapter__card">
+          <p class="eyebrow mono" data-reveal>03 — Engineering / 01</p>
+          <h2 class="display display--sm" data-reveal>Wishbones shaped like wings.</h2>
+          <p class="body" data-reveal>The double-wishbone front axle uses teardrop-profile links that generate around 40 kg of downforce on their own. Behind the centre-lock wheels sit 408 mm discs, clamped by six-piston monobloc calipers.</p>
+          <dl class="spec" data-reveal>
+            <div><dt>Front brakes</dt><dd>408 mm / 6-piston</dd></div>
+            <div><dt>Front track</dt><dd>+29 mm vs GT3</dd></div>
+            <div><dt>Wheels</dt><dd>20" front / 21" rear</dd></div>
+          </dl>
+        </article>
+      </section>
+
+      <section class="chapter chapter--right" data-pose="wing" data-index="03">
+        <article class="chapter__card">
+          <p class="eyebrow mono" data-reveal>03 — Engineering / 02</p>
+          <h2 class="display display--sm" data-reveal>A wing taller than the roof.</h2>
+          <p class="body" data-reveal>The swan-neck rear wing is the first on a production Porsche with a drag reduction system. Flatten it on the straights at the press of a button; under emergency braking it snaps upright as an airbrake.</p>
+          <dl class="spec" data-reveal>
+            <div><dt>Downforce @ 200 km/h</dt><dd>409 kg</dd></div>
+            <div><dt>Downforce @ 285 km/h</dt><dd>860 kg</dd></div>
+            <div><dt>Active aero</dt><dd>DRS + airbrake</dd></div>
+          </dl>
+        </article>
+      </section>
+
+      <section class="chapter chapter--left" data-pose="engine" data-index="03">
+        <article class="chapter__card">
+          <p class="eyebrow mono" data-reveal>03 — Engineering / 03</p>
+          <h2 class="display display--sm" data-reveal>Four litres. Zero turbos.</h2>
+          <p class="body" data-reveal>Hung out behind the rear axle is a motorsport-derived flat-six with new camshafts, a single-throttle intake and rigid valve drive. It answers the throttle instantly and keeps pulling to nine thousand.</p>
+          <dl class="spec" data-reveal>
+            <div><dt>Displacement</dt><dd>3,996 cc</dd></div>
+            <div><dt>Torque</dt><dd>465 Nm</dd></div>
+            <div><dt>Transmission</dt><dd>7-speed PDK</dd></div>
+          </dl>
+        </article>
+      </section>
+
+      <section class="chapter chapter--right" data-pose="front" data-index="03">
+        <article class="chapter__card">
+          <p class="eyebrow mono" data-reveal>03 — Engineering / 04</p>
+          <h2 class="display display--sm" data-reveal>The radiator moved in. The luggage moved out.</h2>
+          <p class="body" data-reveal>One large central radiator, lifted from the 911 RSR, sits where the front boot used to be. Its hot air exits through the bonnet nostrils and is steered around the cabin by roof fins — freeing the flanks for active aero.</p>
+          <dl class="spec" data-reveal>
+            <div><dt>Body panels</dt><dd>CFRP doors, wings, roof, bonnet</dd></div>
+            <div><dt>Kerb weight</dt><dd>1,450 kg</dd></div>
+            <div><dt>Cooling</dt><dd>Single centre radiator</dd></div>
+          </dl>
+        </article>
+      </section>
+    </div>
+
+    <!-- CONFIGURATOR -->
+    <section class="config" id="configure" data-pose="config" data-index="04">
+      <div class="config__sticky">
+      <div class="config__drag" id="dragLayer" aria-hidden="true"></div>
+      <div class="config__head">
+        <p class="eyebrow mono" data-reveal>04 — Configure</p>
+        <h2 class="display" data-reveal>Make it yours.</h2>
+        <p class="config__hint mono" data-reveal><i></i>Drag to rotate</p>
+      </div>
+      <div class="config__panel" data-reveal>
+        <div class="config__group">
+          <div class="config__label"><span class="mono">Exterior</span><strong id="paintName">Ice Grey Metallic</strong></div>
+          <div class="swatches" id="paintSwatches" role="radiogroup" aria-label="Exterior colour"></div>
+        </div>
+        <div class="config__group">
+          <div class="config__label"><span class="mono">Wheels</span><strong id="wheelName">Satin Black</strong></div>
+          <div class="swatches" id="wheelSwatches" role="radiogroup" aria-label="Wheel finish"></div>
+        </div>
+        <a class="btn" href="#enquire" id="configCta"><span>Reserve this spec</span></a>
+      </div>
+      </div>
+    </section>
+
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee__track">
+        <span>525 PS</span><i></i><span>9,000 RPM</span><i></i><span>860 KG</span><i></i><span>6:49.328</span><i></i>
+        <span>525 PS</span><i></i><span>9,000 RPM</span><i></i><span>860 KG</span><i></i><span>6:49.328</span><i></i>
+      </div>
+    </div>
+
+    <!-- GALLERY -->
+    <section class="gallery" id="gallery" data-index="05">
+      <div class="gallery__pin">
+        <div class="gallery__head">
+          <p class="eyebrow mono">05 — Gallery</p>
+          <h2 class="display">Every angle<br />has a job.</h2>
+          <p class="body">Rendered live in your browser from the same model above. Nothing here is decoration — every vent, fin and blade earns its place.</p>
+        </div>
+        <div class="gallery__track" id="galleryTrack"></div>
+      </div>
+    </section>
+
+    <!-- ENQUIRE -->
+    <section class="enquire" id="enquire" data-index="06">
+      <div class="enquire__copy">
+        <p class="eyebrow mono" data-reveal>06 — Enquire</p>
+        <h2 class="display" data-reveal>Request your allocation.</h2>
+        <p class="body" data-reveal>Build slots are limited and go quickly. Tell us how to reach you and a specialist will call within one working day to talk specification, delivery and part-exchange.</p>
+        <ul class="enquire__meta" data-reveal>
+          <li><span class="mono">Showroom</span>By appointment, seven days</li>
+          <li><span class="mono">Phone</span><a href="tel:+10000000000">+1 (000) 000-0000</a></li>
+          <li><span class="mono">Email</span><a href="mailto:sales@example.com">sales@example.com</a></li>
+        </ul>
+      </div>
+      <form class="form" id="enquireForm" novalidate data-reveal>
+        <div class="form__row">
+          <label class="field"><span>Full name</span><input name="name" type="text" autocomplete="name" required /></label>
+          <label class="field"><span>Phone</span><input name="phone" type="tel" autocomplete="tel" /></label>
+        </div>
+        <label class="field"><span>Email</span><input name="email" type="email" autocomplete="email" required /></label>
+        <div class="form__row">
+          <label class="field"><span>I'm interested in</span>
+            <select name="interest">
+              <option>A new allocation</option>
+              <option>A car in stock</option>
+              <option>A test drive</option>
+              <option>Part-exchange valuation</option>
+            </select>
+          </label>
+          <label class="field"><span>Chosen spec</span><input name="spec" id="specField" type="text" readonly /></label>
+        </div>
+        <label class="field"><span>Message (optional)</span><textarea name="message" rows="3"></textarea></label>
+        <div class="form__foot">
+          <button class="btn" type="submit"><span>Send enquiry</span></button>
+          <p class="form__note" id="formNote" role="status"></p>
+        </div>
+      </form>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="footer__brand">
+      <svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true"><path d="M3 26 16 4l13 22h-6.2L16 14.4 9.2 26z" fill="currentColor"/></svg>
+      <span>Apex Nine Motorsport</span>
+    </div>
+    <p>Apex Nine is an independent dealer and is not affiliated with, or endorsed by, Dr. Ing. h.c. F. Porsche AG. Porsche, 911 and GT3 RS are trademarks of their respective owner. Figures are manufacturer data for the 992-generation 911 GT3 RS and may vary by market.</p>
+    <p>3D model: “Porsche 911 GT3 RS Snow Edition” by <a href="https://sketchfab.com/Golden-Models" rel="noopener" target="_blank">Drifter Models</a>, <a href="https://creativecommons.org/licenses/by/4.0/" rel="noopener" target="_blank">CC BY 4.0</a>, optimised and recoloured.</p>
+  </footer>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
